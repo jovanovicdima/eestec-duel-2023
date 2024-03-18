@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin panel</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <div class="container active">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a href="#" onclick="showDiv(0)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                    <span class="fs-4">EESTEC Duel 2023 - admin panel</span>
+                </a>
+
+                <ul id="navbar" class="nav nav-pills">
+                    <li id="nav-item-1" onclick="showDiv(0)" class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                    <li id="nav-item-2" onclick="showDiv(1)" class="nav-item"><a href="#" class="nav-link">Slovo po slovo</a></li>
+                    <li id="nav-item-3" onclick="showDiv(2)" class="nav-item"><a href="#" class="nav-link">Trka znanja</a></li>
+                    <li id="nav-item-4" onclick="showDiv(3)" class="nav-item"><a href="#" class="nav-link">Rekli su nam...</a></li>
+                    <li id="nav-item-5" onclick="showDiv(4)" class="nav-item"><a href="#" class="nav-link">Kreiraj pitanja</a></li>
+                </ul>
+            </header>
+        </div>
+        <div id="panelContainer">
+            <div id="div1" class="container active">
+                <h1>Home</h1>
+            </div>
+
+            <div id="div2" class="container">
+                <h1>Slovo po slovo</h1>
+                <div class="container active mt-4">
+
+                    <div class="mb-3">
+                        <label for="letterGuess" class="form-label">Unesi slovo:</label>
+                        <input type="text" id="letterGuess" class="form-control" placeholder="Slovo">
+                    </div>
+
+                    <button class="btn btn-primary mb-3" onclick="guessLetter1()">Pogodjaj slovo</button>
+
+                    <button class="btn btn-danger mb-3" onclick="revealAnswer1(1)">Tim 1 je uspesno pogodio</button>
+
+                    <button class="btn btn-danger mb-3" onclick="revealAnswer1(2)">Tim 2 je uspesno pogodio</button>
+
+                    <button class="btn btn-success mb-3" onclick="nextQuestion1()">Sledece pitanje</button>
+
+                    <div>
+                        <input class="button" type="file" id="questionsUpload1" accept="application/JSON"/>
+                    </div>
+                </div>
+            </div>
+            <div id="div3" class="container">
+                <h1>Trka znanja</h1>
+
+                <button class="btn btn-primary mb-3" onclick="revealAnswer2(1)">Tim 1 je uspesno pogodio</button>
+                <button class="btn btn-primary mb-3" onclick="revealAnswer2(2)">Tim 2 je uspesno pogodio</button>
+                <button class="btn btn-danger mb-3" onclick="wrongAnswer2(1)">Tim 1 je pogresio</button>
+                <button class="btn btn-danger mb-3" onclick="wrongAnswer2(2)">Tim 2 je pogresio</button>
+                <button class="btn btn-danger mb-3" onclick="revealAnswer2(0)">Niko nije pogodio</button>
+
+                <button class="btn btn-success mb-3" onclick="nextQuestion2()">Sledece pitanje</button>
+                <div>
+                    <input class="button" type="file" id="questionsUpload2" accept="application/JSON"/>
+                </div>
+            </div>
+            <div id="div4" class="container">
+                <h1>Rekli su nam...</h1>
+                <div class="container text-center">
+                    <div class="container active">
+                        <div class="row">
+                            <div class="col" style="align-items: center; padding: 20px;">
+                                <button class="btn disabled rounded ffField" id="ffField1">1</button>
+                                <button class="btn disabled rounded ffField" id="ffField5">5</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="align-items: center; padding: 20px;">
+                                <button class="btn disabled rounded ffField" id="ffField2">2</button>
+                                <button class="btn disabled rounded ffField" id="ffField6">6</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="align-items: center; padding: 20px;">
+                                <button class="btn disabled rounded ffField" id="ffField3">3</button>
+                                <button class="btn disabled rounded ffField" id="ffField7">7</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="align-items: center; padding: 20px;">
+                                <button class="btn disabled rounded ffField" id="ffField4">4</button>
+                                <button class="btn disabled rounded ffField" id="ffField8">8</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-primary" onclick="addPoints3(1)">Dodeli poene timu 1</button>
+                        <button class="btn btn-primary" onclick="addPoints3(2)">Dodelu poene timu 2</button>
+                        <button class="btn btn-danger sendId" onclick="addMistake()">Mistake Made</button>
+                        <button class="btn btn-success sendId" onclick="nextQuestion3()">Sledece pitanje</button>
+                    </div>
+
+                    <div>
+                        <input class="button" type="file" id="questionsUpload3" accept="application/JSON"/>
+                    </div>
+                </div>
+            </div>
+            <div id="div5" class="container">
+                <h1>Kreiraj pitanja</h1>
+                <div class="container active mt-4">
+                    <article class="row">
+                        <ul id="verticalNav" class="nav nav-pills flex-column col">
+                            <li id="vertical-nav-item-1" class="nav-item" onclick="swapAdding(0)"><a class="nav-link active" href="#">Slovo po slovo</a></li>
+                            <li id="vertical-nav-item-2" class="nav-item" onclick="swapAdding(1)"><a class="nav-link" href="#">Trka znanja</a></li>
+                            <li id="vertical-nav-item-3" class="nav-item" onclick="swapAdding(2)"><a class="nav-link" href="#">Rekli su nam...</a></li>
+                        </ul>   
+
+                        <div id="questionContainer" class="col-9">
+                            <article id="questionDiv1" class="container active">
+                                <h2>1. Pitanje</h2>
+                                <div id="sentenceInputArea" class="mb-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Unesi recenicu:</label>
+                                        <input type="text" class="form-control firstQuestionSentance" placeholder="Recenica">
+                                    </div>
+                                </div>
+                                <button onclick="addMoreFields1()" class="btn btn-primary">Add</button>
+                                <button onclick="removeFields1()" class="btn btn-danger">Remove</button>
+                                <button onclick="resetFields1()" class="btn btn-success">Reset</button>
+                                <button onclick="createFirstJson()" class="btn btn-warning">Download</button>
+                            </article>
+
+                            <article id="questionDiv2" class="container">
+                                <h2>2. Pitanje</h2>
+                                <div id="secondGameInputArea" class="mb-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Unesi pitanje:</label>
+                                        <input type="text" class="form-control secondQuestionText" placeholder="Pitanje">
+                                        <label class="form-label">Unesi odgovor:</label>
+                                        <input type="text" class="form-control secondQuestionAnswer" placeholder="Odgovor">
+                                    </div>
+                                </div>
+                                <button onclick="addMoreFields2()" class="btn btn-primary">Add</button>
+                                <button onclick="removeFields2()" class="btn btn-danger">Remove</button>
+                                <button onclick="resetFields2()" class="btn btn-success">Reset</button>
+                                <button onclick="createSecondJson()" class="btn btn-warning">Download</button>
+                            </article>
+
+                            <article id="questionDiv3" class="container">
+                                <h2>3. Pitanje</h2>
+                                <div id="thirdGameInputArea" class="mb-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Unesi pitanje:</label>
+                                        <input type="text" class="form-control thirdQuestionText" placeholder="Pitanje">
+                                        <div class="mb-3">
+                                            <label class="form-label">Unesi odgovore:</label>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+                                            <article class="row mb-3">
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control thirdQuestionAnswer" placeholder="Odgovor">
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="number" class="form-control thirdQuestionValue" min="1" max="100" placeholder="Vrednost">
+                                                </div>
+                                            </article>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="addMoreFields3()" class="btn btn-primary">Add</button>
+                                <button onclick="removeFields3()" class="btn btn-danger">Remove</button>
+                                <button onclick="resetFields3()" class="btn btn-success">Reset</button>
+                                <button onclick="createThirdJson()" class="btn btn-warning">Download</button>
+                            </article>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="script.js"></script>
+</html>

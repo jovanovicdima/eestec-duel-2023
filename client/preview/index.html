@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>EESTEC Duel 2023</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+		<div class="container active">
+		<div class="row" style="border-bottom: solid;">
+			<div class="col-6 h2container" id="scoreTeam1" style="border-right: solid;">
+				<h2>Team 1: 0 points</h2>
+			</div>
+			<div class="col-6 h2container" id="scoreTeam2">
+				<h2>Team 2: 0 points</h2>
+			</div>
+		</div>
+		<div id="panelContainer">
+			<div id="home" class="container active gameContainer">
+				<div class="fixed-top">
+					<img src="images/top logo.png" alt="" style="width: 100%; padding-top: 50px; padding-right: 80px;">
+				</div>
+				<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+					<img style="height: 70%" src="images/mid logo.png" />
+				</div>
+				<div class="fixed-bottom" style="display: flex; justify-content: space-between;">
+					<img src="images/bottom logo.png" alt="" style="width: 100%; padding: 0px 50px;">
+				</div>
+			</div>
+			<div id="game1" class="container gameContainer">
+				<div id="startingPage1" class="container active" style="align-items: center;">
+					<div style="font-size: 120px; text-align: center; padding-top: 100px;">Slovo po slovo</div>
+				</div>
+				<div id="actualGame1" class="row container" style="padding-top: 80px;">
+					<div class="col-12" style="align-content: center;">
+						<div>
+							<div id="usedLetters1" style="font-size: 60px;">M,K</div>
+						</div>
+						<div>
+							<div id="maskedWord1" style="letter-spacing: 10px; margin-top: 15%;"> ______</div>
+						</div>
+					</div>
+				</div>
+				<div id="endingPage1" class="container"></div>
+			</div>
+			<div id="game2" class="container gameContainer">
+				<div id="startingPage2" class="container active">
+					<div style="font-size: 120px; text-align: center; padding-top: 100px;">Trka znanja</div>
+				</div>
+				<div id="actualGame2" class="row container">
+					<div class="col-12" style="align-items: center; padding: 20px;">
+						<div style="font-size:48px; text-align: center;" id="question2">Placeholder pitanje?</div>
+					</div>
+					<div class="col-12" style="align-items: center; padding: 20px;">
+						<div style="font-size:36px; text-align: center;" id="answer2">Placeholder odgovor</div>
+					</div>
+				</div>
+				<div id="endingPage2" class="container"></div>
+			</div>
+			<div id="game3" class="container gameContainer">
+				<div id="startingPage3" class="container active">
+					<div style="font-size: 120px; text-align: center; padding-top: 100px;">Rekli su nam...</div>
+				</div>
+				<div id="actualGame3" class="container">
+					<h1 style="text-align: center;" id="question3">Placeholder pitanje</h1>
+					<div class="row" style="align-items: center;">
+						<div class="col-1"></div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							
+							<div class="rounded ffAnswer" id="ffAnswer1">1</div>
+						</div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div class="rounded ffAnswer" id="ffAnswer5">5</div>
+						</div>
+						<div class="col-1"></div>
+					</div>
+					<div class="row" style="align-items: center;">
+						<div class="col-1"></div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div  class="rounded ffAnswer" id="ffAnswer2">2</div>
+						</div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div class="rounded ffAnswer" id="ffAnswer6">6</div>
+						</div>
+						<div class="col-1"></div>
+					</div>
+					<div class="row" style="align-items: center;">
+						<div class="col-1"></div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div class="rounded ffAnswer" id="ffAnswer3">3</div>
+						</div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div class="rounded ffAnswer" id="ffAnswer7">7</div>
+						</div>
+						<div class="col-1"></div>
+					</div>
+					<div class="row" style="align-items: center;">
+						<div class="col-1"></div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div class="rounded ffAnswer" id="ffAnswer4">4</div>
+						</div>
+						<div class="col-5" style="align-items: center; padding: 20px;">
+							<div class="rounded ffAnswer" id="ffAnswer8">8</div>
+						</div>
+						<div class="col-1"></div>
+					</div>
+				</div>
+				<div id="endingPage3" class="container"></div>
+			</div>
+		</div>
+		<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

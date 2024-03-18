@@ -1,0 +1,29 @@
+body {
+    background-image: url("images/background.svg"); 
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: #ffcc00;
+}
+
+.container {
+    display: none;
+    width: 100%;
+}
+
+.active {
+    display: block;
+}
+div
+{
+    font-size: 80px;
+    text-align: center;
+}
+.h2container{
+    text-align: center;
+    font-size: xx-large;
+}
+.ffAnswer{
+    font-size:36px;
+    text-align: center;
+    background-color: #525252;
+}

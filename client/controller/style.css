@@ -1,0 +1,17 @@
+.container {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+.h2container{
+    text-align: center;
+    font-size: xx-large;
+}
+.ffField{
+    font-size:36px;
+    text-align: center;
+    background-color: lightblue;
+    min-width: 200px;
+}
